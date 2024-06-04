@@ -12,11 +12,7 @@ import { AuthInterceptorService } from '../../auth/auth-interceptor.service';
   imports: [FormsModule, HttpClientModule],
   providers: [
     AuthService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
-      multi: true,
-    },
+
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -32,9 +28,6 @@ export class LoginComponent {
       (response) => {
         // localStorage.setItem('tokemn');
         this.router.navigate(['/verify-login']);
-      },
-      (error) => {
-        console.error('Login failed', error);
       }
     );
   }

@@ -7,4 +7,5 @@ import { RegisterComponent } from '../register/register.component';
 export const WELCOME_ROUTES: Routes = [
   { path: '', component: WelcomeComponent },
   { path: 'register', component: RegisterComponent },
+  
 ];

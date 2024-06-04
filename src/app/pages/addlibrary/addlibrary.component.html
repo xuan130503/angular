@@ -1,0 +1,72 @@
+<!-- <form [formGroup]="libraryForm" (ngSubmit)="onSubmit()">
+    <label for="libraryId">Library ID:</label>
+    <input id="libraryId" formControlName="libraryId" type="text">
+  
+    <label for="libraryName">Library Name:</label>
+    <input id="libraryName" formControlName="libraryName" type="text">
+  
+    <label for="location">Location:</label>
+    <input id="location" formControlName="location" type="text">
+  
+    <div formArrayName="books">
+      <div *ngFor="let book of books.controls; let i = index" [formGroupName]="i">
+        <label for="bookId">Book ID:</label>
+        <input id="bookId" formControlName="bookId" type="text">
+  
+        <label for="bookTitle">Book Title:</label>
+        <input id="bookTitle" formControlName="bookTitle" type="text">
+  
+        <label for="author">Author:</label>
+        <input id="author" formControlName="author" type="text">
+  
+        <label for="libraryId">Library ID:</label>
+        <input id="libraryId" formControlName="libraryId" type="text">
+  
+        <button type="button" (click)="removeBook(i)">Remove Book</button>
+      </div>
+    </div>
+  
+    <button type="button" (click)="addBook()">Add Book</button>
+    <button type="submit">Create Library</button>
+  </form> -->
+  
+
+  
+<form [formGroup]="libraryForm" (ngSubmit)="onSubmit()">
+  <div class="grid gap-6 mb-6 md:grid-cols-2">
+      <div>
+          <label for="libraryId" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Library ID:</label>
+          <input type="text" formControlName="libraryId" id="libraryId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+      </div>
+      <div>
+          <label for="libraryName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Library Name:</label>
+          <input type="text" id="libraryName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+      </div>
+
+      <div>
+        <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">location:</label>
+        <input id="location" formControlName="location" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+    </div>
+    <!-- <div formArrayName="books">
+      <div *ngFor="let book of books.controls; let i = index" [formGroupName]="i">
+        <label for="bookId">Book ID:</label>
+        <input id="bookId" formControlName="bookId" type="text">
+  
+        <label for="bookTitle">Book Title:</label>
+        <input id="bookTitle" formControlName="bookTitle" type="text">
+  
+        <label for="author">Author:</label>
+        <input id="author" formControlName="author" type="text">
+  
+        <label for="libraryId">Library ID:</label>
+        <input id="libraryId" formControlName="libraryId" type="text">
+  
+        <button type="button" (click)="removeBook(i)">Remove Book</button>
+      </div>
+    </div> -->
+  </div>
+
+  <!-- <button type="button" (click)="addBook()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button> -->
+  <button type="button"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">save</button>
+
+</form>

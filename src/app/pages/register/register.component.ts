@@ -1,15 +1,19 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, NgForm, Validators } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
+import { AuthInterceptorService } from '../../auth/auth-interceptor.service';
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [FormsModule, HttpClientModule],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })

@@ -1,0 +1,49 @@
+<div class="relative overflow-x-auto">
+  <table
+    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+  >
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="px-6 py-3">librariesId</th>
+        <th scope="col" class="px-6 py-3">LibrariesName</th>
+        <th scope="col" class="px-6 py-3">Location</th>
+        <th scope="col" class="px-6 py-3">bookId</th>
+        <th scope="col" class="px-6 py-3">booktitle</th>
+        <th scope="col" class="px-6 py-3">author</th>
+        <th scope="col" class="px-6 py-3">librariesId</th>
+      </tr>
+    </thead>
+    <!-- <tbody *ngFor="let library of libraries">
+      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <td class="px-6 py-4">{{ library.libraryId }}</td>
+        <td class="px-6 py-4">{{ library.libraryName }}</td>
+        <td class="px-6 py-4">{{ library.location }}</td>
+        <td class="px-6 py-4">
+          <ul
+            class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400"
+          >
+            <li *ngFor="let book of library.books">
+              {{ book.booktitle }} by {{ book.author }}
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody> -->
+    <tbody>
+      <tr *ngFor="let library of libraries">
+        <td>{{ library.libraryId }}</td>
+        <td>{{ library.libraryName }}</td>
+        <td>{{ library.location }}</td>
+        <td>
+          <!-- <ul>
+            <li *ngFor="let book of library.books">
+              {{ book.bookTitle }} by {{ book.author }}
+            </li>
+          </ul> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
