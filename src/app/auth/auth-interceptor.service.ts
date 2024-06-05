@@ -1,12 +1,13 @@
 import {
   HttpEvent,
   HttpHandler,
+  HttpHeaders,
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
-import { AuthService } from './auth.service';
+import { AuthService } from './AuthService/auth.service';
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
@@ -21,6 +22,9 @@ export class AuthInterceptorService implements HttpInterceptor {
           setHeaders: {
             Authorization: `Bearer ${token}`,
           },
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+          })
         });
       }
       return next.handle(req);

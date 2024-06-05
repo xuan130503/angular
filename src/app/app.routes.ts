@@ -2,9 +2,11 @@ import { Routes } from '@angular/router';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { VerifyLoginComponent } from './pages/verify-login/verify-login.component';
-import { LibrariesComponent } from './pages/libraries/libraries.component';
-import { AddlibraryComponent } from './pages/addlibrary/addlibrary.component';
-
+import { BookComponent } from './pages/Books/book/book.component';
+import { BookAddComponent } from './pages/Books/book-add/book-add.component';
+import { BookupdateComponent } from './pages/Books/bookupdate/bookupdate.component';
+import { LibraryComponent } from './pages/Libraries/library/library.component';
+import { LibraryAddComponent } from './pages/Libraries/library-add/library-add.component';
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/welcome' },
   {
@@ -15,6 +17,9 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'verify-login', component: VerifyLoginComponent },
-  { path: 'libraries', component: LibrariesComponent},
-  {path : 'addlibraries' , component : AddlibraryComponent}
+  { path: 'books', component: BookComponent },
+  { path: 'booksadd', component: BookAddComponent },
+  { path: 'bookupdate/:bookId', component: BookupdateComponent },
+  { path: 'libraries', component: LibraryComponent },
+  { path: 'librariesadd', component: LibraryAddComponent },
 ];
