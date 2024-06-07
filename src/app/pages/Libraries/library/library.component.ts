@@ -20,7 +20,7 @@ export class LibraryComponent {
   ngOnInit(): void {
     this.libraryService.getAllLibrary().subscribe((data: LibraryDto[]) => {
       this.librarys = data;
-      console.log(this.librarys);
+      // console.log(this.librarys);
     });
   }
  delete(libraryId : number){

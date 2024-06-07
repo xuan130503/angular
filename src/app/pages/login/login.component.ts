@@ -26,8 +26,12 @@ export class LoginComponent {
   login() {
     this.authService.login(this.username, this.password).subscribe(
       (response) => {
-        // localStorage.setItem('tokemn');
-        this.router.navigate(['/verify-login']);
+        const token = localStorage.setItem('accessToken', response.token);
+        console.log(token);
+        // this.router.navigate(['/verify-login']);
+
+        this.router.navigate(['/']);
+
       }
     );
   }

@@ -7,6 +7,8 @@ import { BookAddComponent } from './pages/Books/book-add/book-add.component';
 import { BookupdateComponent } from './pages/Books/bookupdate/bookupdate.component';
 import { LibraryComponent } from './pages/Libraries/library/library.component';
 import { LibraryAddComponent } from './pages/Libraries/library-add/library-add.component';
+import { LibraryUpdateComponent } from './pages/Libraries/library-update/library-update.component';
+import { ViewComponent } from './pages/Books/view/view.component';
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/welcome' },
   {
@@ -20,6 +22,8 @@ export const routes: Routes = [
   { path: 'books', component: BookComponent },
   { path: 'booksadd', component: BookAddComponent },
   { path: 'bookupdate/:bookId', component: BookupdateComponent },
+  { path: 'view/:bookId', component: ViewComponent },
   { path: 'libraries', component: LibraryComponent },
   { path: 'librariesadd', component: LibraryAddComponent },
+  { path: 'libraryupdate/:libraryId', component: LibraryUpdateComponent },
 ];

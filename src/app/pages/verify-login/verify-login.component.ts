@@ -38,13 +38,14 @@ export class VerifyLoginComponent implements OnInit {
     this.authService.verifyLogin(this.email, this.otp).subscribe(
       (response) => {
         alert('OTP verified successfully.');
-        localStorage.setItem('accessToken', response.token);
-        // const token = localStorage.getItem('accessToken');
+  
+        // const token = localStorage.setItem('accessToken', response.token);
         // console.log(token);
-        // sessionStorage.setItem('accessToken', response.token);
-        // localStorage.setItem('access-token', )
+     
         this.router.navigate(['/']); // Update with your next route
       },
+
+      
       (error) => {
         alert('Invalid OTP.');
       }

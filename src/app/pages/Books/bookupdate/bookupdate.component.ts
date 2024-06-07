@@ -19,9 +19,9 @@ import { BooksService } from '../../../auth/BooksService/books.service';
 })
 export class BookupdateComponent {
   bookId!: number;
-  bookTitle! : string ;
-  author! : string;
-  libraryId! : number
+  // bookTitle! : string ;
+  // author! : string;
+  // libraryId! : number
   book!: Book;
   form!: FormGroup;
 
@@ -33,6 +33,7 @@ export class BookupdateComponent {
   ngOnInit(): void {
     this.bookId = this.route.snapshot.params['bookId'];
     this.bookService.getBookById(this.bookId).subscribe((data: Book) => {
+     
       this.book = data;
     });
     this.form = new FormGroup({
