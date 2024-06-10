@@ -21,7 +21,6 @@ export class BookComponent {
   ngOnInit(): void {
     this.bookService.getAll().subscribe((data: Book[]) => {
       this.books = data;
-
     });
   }
 

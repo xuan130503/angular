@@ -1,40 +1,45 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, NgForm, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  NgForm,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../auth/AuthService/auth.service';
 import { AuthInterceptorService } from '../../auth/auth-interceptor.service';
 import { Router } from '@angular/router';
-
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, HttpClientModule],
-  providers: [
-    AuthService,
-    
-  ],
+  imports: [FormsModule, HttpClientModule,ReactiveFormsModule, NgIf],
+  providers: [AuthService],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-  username: string = '';
-  email: string = '';
-  password: string = '';
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(private authService: AuthService, private router : Router) { }
+  public signupForm = new FormGroup({
+    username: new FormControl(null, [Validators.required]),
+    email: new FormControl(null, [Validators.required, Validators.email]),
+    password: new FormControl(null, [Validators.required]),
+  });
 
-  register(): void {
-    this.authService.register(this.username, this.email, this.password)
-      .subscribe(
-        response => {
-          alert('Registration successful');
-          this.router.navigateByUrl('/login')
+  public onSubmit() {
+    if (this.signupForm.valid) {
+      this.authService.signup(this.signupForm.value).subscribe({
+        next: (data: any) => {
+          this.router.navigate(['/login']);
         },
-        error => {
-          alert('Registration failed');
-        }
-      );
+        error: (err) => console.log(err),
+      });
+    }
   }
 }

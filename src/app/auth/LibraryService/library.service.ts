@@ -9,10 +9,6 @@ import { LibraryDto } from '../../models/library-dto.models';
 export class LibraryService {
   private apiurlLib = 'http://localhost:5013/api/libraries';
 
-
-
- 
-
   constructor(private http: HttpClient) {}
 
   getAllLibrary(): Observable<any> {

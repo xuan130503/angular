@@ -10,6 +10,7 @@ import {
 import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { BooksService } from '../../../auth/BooksService/books.service';
+import { LibraryDto } from '../../../models/library-dto.models';
 
 @Component({
   selector: 'app-book-add',
@@ -20,18 +21,23 @@ import { BooksService } from '../../../auth/BooksService/books.service';
 })
 export class BookAddComponent {
   form!: FormGroup;
+  libraryIds: LibraryDto[] = [];
 
   constructor(private bookService: BooksService, private router: Router) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      bookId: new FormControl(''),
-      bookTitle: new FormControl(''),
-      author: new FormControl(''),
-      libraryId: new FormControl(''),
+      bookId: new FormControl(null),
+      bookTitle: new FormControl(null),
+      author: new FormControl(null),
+      libraryId: new FormControl(null),
+    });
+
+    this.bookService.getAllLibrary().subscribe((ids: LibraryDto[]) => {
+      this.libraryIds = ids;
+      console.log(ids);
     });
   }
-
   submit() {
     console.log(this.form.value);
     this.bookService.create(this.form.value).subscribe((res: any) => {

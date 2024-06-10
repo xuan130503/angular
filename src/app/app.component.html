@@ -17,12 +17,12 @@
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/welcome">Welcome</a>
           </li>
-          <li nz-menu-item nzMatchRouter>
+          <!-- <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['/register']">register</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['/login']">login</a>
-          </li>
+          </li> -->
           <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['/books']">Books</a>
           </li>
@@ -51,7 +51,9 @@
                nz-icon
                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></span>
+            
         </span>
+
       </div>
     </nz-header>
     <nz-content>

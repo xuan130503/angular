@@ -7,6 +7,9 @@ import { Book } from '../../models/book.models';
 })
 export class BooksService {
   private apiUrl = 'http://localhost:5013/api/books';
+
+  private apiurlLib = 'http://localhost:5013/api/libraries';
+
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<any> {
@@ -24,5 +27,9 @@ export class BooksService {
   }
   deletebook(bookId: number) {
     return this.http.delete(this.apiUrl + '/' + bookId);
+  }
+  getAllLibrary(): Observable<any> {
+  
+    return this.http.get(this.apiurlLib);
   }
 }

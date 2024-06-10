@@ -1,38 +1,53 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/AuthService/auth.service';
 import { AuthInterceptorService } from '../../auth/auth-interceptor.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, HttpClientModule],
-  providers: [
-    AuthService,
-
+  imports: [
+    FormsModule,
+    HttpClientModule,
+    RouterModule,
+    ReactiveFormsModule,
+    NgIf,
   ],
+  providers: [AuthService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
-
   constructor(private authService: AuthService, private router: Router) {}
 
-  login() {
-    this.authService.login(this.username, this.password).subscribe(
-      (response) => {
-        const token = localStorage.setItem('accessToken', response.token);
-        console.log(token);
-        // this.router.navigate(['/verify-login']);
+  protected loginForm = new FormGroup({
+    username: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [Validators.required]),
+  });
 
-        this.router.navigate(['/']);
+  onSubmit() {
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value);
+      this.authService
+        .login(this.loginForm.value)
 
-      }
-    );
+        .subscribe((data: any) => {
+          const token = localStorage.setItem('accessToken', data.token);
+          if (this.authService.isLoggedIn()) {
+            this.router.navigate(['/welcome']);
+          }
+          console.log(data);
+        });
+    }
   }
 }
