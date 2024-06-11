@@ -1,0 +1,57 @@
+<div class="relative overflow-x-auto">
+  <button
+    type="button"
+    [routerLink]="['/rentalCreate']"
+    class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+  >
+    Create Books
+  </button>
+  <table
+    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+  >
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="px-6 py-3">bookTitle :</th>
+        <th scope="col" class="px-6 py-3">booksAuthor :</th>
+        <th scope="col" class="px-6 py-3">libraryUserId :</th>
+        <th scope="col" class="px-6 py-3">Rental By :</th>
+        <th scope="col" class="px-6 py-3">Rental date :</th>
+        <th scope="col" class="px-6 py-3">Return date :</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let rental of rentals"
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+      >
+        <th scope="col" class="px-6 py-3">
+          {{ rental.book.bookTitle }}
+        </th>
+        <th scope="col" class="px-6 py-3">
+          {{ rental.book.author }}
+        </th>
+        <th scope="col" class="px-6 py-3">
+          {{ rental.libraryUser.libraryUserId }}
+        </th>
+        <th scope="col" class="px-6 py-3">
+          {{ rental.libraryUser.firstname }} {{ rental.libraryUser.lassname }}
+        </th>
+        <th scope="col" class="px-6 py-3">
+          {{ rental.rentalDate | date : "shortDate" }}
+        </th>
+        <th *ngIf="rental.returnDate" scope="col" class="px-6 py-3">
+          {{ rental.returnDate }}
+        </th>
+
+        <th scope="col" class="px-6 py-3">
+          <p *ngIf="!rental.returnDate">Not Returned</p>
+          <p *ngIf="rental.returnDate">
+            return on {{ rental.returnDate | date : "shortDate" }}
+          </p>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -12,6 +12,7 @@ import { authGuard } from './auth/auth/auth.guard';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { LibraryBooksComponent } from './pages/Libraries/library-books/library-books.component';
 import { RentalsComponent } from './pages/Rental/rentals/rentals.component';
+import { RentalsCreateComponent } from './pages/Rental/rentals-create/rentals-create.component';
 export const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: '/welcome' },
   // {
@@ -35,5 +36,6 @@ export const routes: Routes = [
   { path: 'libraryupdate/:libraryId', component: LibraryUpdateComponent },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'librarybooks', component: LibraryBooksComponent },
-  {path: 'rental', component : RentalsComponent}
+  { path: 'rental', component: RentalsComponent },
+  { path: 'rentalCreate', component: RentalsCreateComponent },
 ];

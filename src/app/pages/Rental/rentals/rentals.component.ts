@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { RentalsDto } from '../../../models/RentalsDto';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { RentalsService } from '../../../auth/Rentals/rentals.service';
-import { NgFor } from '@angular/common';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { RentalsService } from '../../../auth/RentalsService/rentals.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-rentals',
   standalone: true,
-  imports: [ReactiveFormsModule, NgFor],
+  imports: [ReactiveFormsModule, NgFor, NgIf, CommonModule, RouterModule],
   templateUrl: './rentals.component.html',
   styleUrl: './rentals.component.css',
 })
