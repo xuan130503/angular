@@ -1,5 +1,11 @@
 <div class="relative overflow-x-auto">
-  <button type="button"  [routerLink]="['/librariesadd']" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Create Books</button>
+  <button
+    type="button"
+    [routerLink]="['/librarybooks']"
+    class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+  >
+    Create library
+  </button>
   <table
     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
   >
@@ -10,7 +16,7 @@
         <th scope="col" class="px-6 py-3">Libraries ID</th>
         <th scope="col" class="px-6 py-3">Libraries Name</th>
         <th scope="col" class="px-6 py-3">Localtion</th>
-
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -33,8 +39,20 @@
 
         <th scope="col" class="px-6 py-3">
           <!-- <a href="#" [routerLink]="['/bookupdate', book.bookId]" class="btn btn-primary">Edit</a> -->
-          <button type="button" [routerLink]="['/libraryupdate', library.libraryId]" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Edit Books</button>
-          <button type="button" (click)="delete(library.libraryId)" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Delete libraries</button>
+          <button
+            type="button"
+            [routerLink]="['/libraryupdate', library.libraryId]"
+            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          >
+            Edit Books
+          </button>
+          <button
+            type="button"
+            (click)="delete(library.libraryId)"
+            class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+          >
+            Delete libraries
+          </button>
         </th>
       </tr>
     </tbody>

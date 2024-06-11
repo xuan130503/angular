@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ForgotPassComponent } from './forgot-pass.component';
+import { LibraryBooksComponent } from './library-books.component';
 
-describe('ForgotPassComponent', () => {
-  let component: ForgotPassComponent;
-  let fixture: ComponentFixture<ForgotPassComponent>;
+describe('LibraryBooksComponent', () => {
+  let component: LibraryBooksComponent;
+  let fixture: ComponentFixture<LibraryBooksComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ForgotPassComponent]
+      imports: [LibraryBooksComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ForgotPassComponent);
+    fixture = TestBed.createComponent(LibraryBooksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -8,7 +8,6 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 
-
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
   intercept(
@@ -20,16 +19,15 @@ export class AuthInterceptorService implements HttpInterceptor {
       if (token) {
         req = req.clone({
           setHeaders: {
-            Authorization: `Bearer `+ token,
+            Authorization: `Bearer ` + token,
           },
-          headers: new HttpHeaders({
-         
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          }),
+          // headers: new HttpHeaders({
+
+          //   'Content-Type': 'application/json',
+          //   'Access-Control-Allow-Origin': '*',
+          // }),
         });
       }
-    
     }
     return next.handle(req);
   }

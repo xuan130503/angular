@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { LibraryService } from '../../../auth/LibraryService/library.service';
 import { Router } from '@angular/router';
 

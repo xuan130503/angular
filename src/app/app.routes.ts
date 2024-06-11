@@ -10,6 +10,7 @@ import { LibraryUpdateComponent } from './pages/Libraries/library-update/library
 import { ViewComponent } from './pages/Books/view/view.component';
 import { authGuard } from './auth/auth/auth.guard';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { LibraryBooksComponent } from './pages/Libraries/library-books/library-books.component';
 export const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: '/welcome' },
   // {
@@ -18,19 +19,19 @@ export const routes: Routes = [
   //     import('./pages/welcome/welcome.routes').then((m) => m.WELCOME_ROUTES),
   // },
   {
-    path: '', redirectTo: '/login', pathMatch: 'full'
-},
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full',
+  },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'books', component: BookComponent,canActivate :[authGuard] },
+  { path: 'books', component: BookComponent, canActivate: [authGuard] },
   { path: 'booksadd', component: BookAddComponent },
   { path: 'bookupdate/:bookId', component: BookupdateComponent },
   { path: 'view/:bookId', component: ViewComponent },
-  { path: 'libraries', component: LibraryComponent,canActivate :[authGuard] },
+  { path: 'libraries', component: LibraryComponent, canActivate: [authGuard] },
   { path: 'librariesadd', component: LibraryAddComponent },
   { path: 'libraryupdate/:libraryId', component: LibraryUpdateComponent },
   { path: 'welcome', component: WelcomeComponent },
-
-
-  
+  { path: 'librarybooks', component: LibraryBooksComponent },
 ];

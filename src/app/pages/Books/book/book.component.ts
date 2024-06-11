@@ -9,7 +9,13 @@ import { BooksService } from '../../../auth/BooksService/books.service';
 @Component({
   selector: 'app-book',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, NgFor,CommonModule,RouterModule],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    NgFor,
+    CommonModule,
+    RouterModule,
+  ],
   templateUrl: './book.component.html',
   styleUrl: './book.component.css',
 })
@@ -24,12 +30,10 @@ export class BookComponent {
     });
   }
 
-  deleteBooks(bookId : number){
-    this.bookService.deletebook(bookId).subscribe(res => {
-      this.books = this.books.filter(item => item.bookId != bookId);
-      alert("Delete Successful")
-      
-    })
+  deleteBooks(bookId: number) {
+    this.bookService.deletebook(bookId).subscribe((res) => {
+      this.books = this.books.filter((item) => item.bookId != bookId);
+      alert('Delete Successful');
+    });
   }
-
 }

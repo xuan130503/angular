@@ -33,7 +33,6 @@ export class BookupdateComponent {
   ngOnInit(): void {
     this.bookId = this.route.snapshot.params['bookId'];
     this.bookService.getBookById(this.bookId).subscribe((data: Book) => {
-     
       this.book = data;
     });
     this.form = new FormGroup({
@@ -46,9 +45,9 @@ export class BookupdateComponent {
 
   submit() {
     const book = this.form.value as Book;
-    this.bookService.updateBook(this.bookId, book).subscribe((data : any ) => {
-        alert('Post updated successfully!');
-        this.router.navigateByUrl('books');
-      });
+    this.bookService.updateBook(this.bookId, book).subscribe((data: any) => {
+      alert('Post updated successfully!');
+      this.router.navigateByUrl('books');
+    });
   }
 }

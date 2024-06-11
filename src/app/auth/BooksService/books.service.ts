@@ -29,7 +29,6 @@ export class BooksService {
     return this.http.delete(this.apiUrl + '/' + bookId);
   }
   getAllLibrary(): Observable<any> {
-  
     return this.http.get(this.apiurlLib);
   }
 }
