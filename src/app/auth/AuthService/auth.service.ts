@@ -26,8 +26,7 @@ export class AuthService {
   // }
 
   login(data: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(apiUrl + `/login`, data, { headers });
+    return this.http.post(apiUrl + `/login`, data,httpOptions);
   }
   logout() {
     localStorage.removeItem('accessToken');

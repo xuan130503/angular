@@ -31,4 +31,7 @@ export class BooksService {
   getAllLibrary(): Observable<any> {
     return this.http.get(this.apiurlLib);
   }
+  update(bookDto: Book): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${bookDto.bookId}`, bookDto);
+  }
 }
