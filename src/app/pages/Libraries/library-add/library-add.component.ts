@@ -55,7 +55,6 @@ export class LibraryAddComponent {
   }
 
   ngOnInit(): void {
-    this.addRow();
-    this.addRow();
+
   }
 }

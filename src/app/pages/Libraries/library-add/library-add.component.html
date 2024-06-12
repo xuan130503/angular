@@ -1,3 +1,14 @@
+
+
+
+<div class="example-input">
+  <input nz-input placeholder="large size" nzSize="large" />
+  <input nz-input placeholder="default size" nzSize="default" />
+  <input nz-input placeholder="small size" nzSize="small" />
+</div>
+
+
+
 <button nz-button (click)="addRow()" nzType="primary">Add</button>
 <br />
 <br />
@@ -18,8 +29,18 @@
         </div>
         <input [hidden]="editId !== data.id" type="text" nz-input [(ngModel)]="data.name" (blur)="stopEdit()" />
       </td>
-      <td>{{ data.age }}</td>
-      <td>{{ data.address }}</td>
+      <td>
+        <div class="editable-cell" [hidden]="editId === data.id" (click)="startEdit(data.id)">
+          {{ data.age }}
+        </div>
+        <input [hidden]="editId !== data.id" type="text" nz-input [(ngModel)]="data.name" (blur)="stopEdit()" />
+      </td>
+      <td>
+        <div class="editable-cell" [hidden]="editId === data.id" (click)="startEdit(data.id)">
+          {{ data.address }}
+        </div>
+        <input [hidden]="editId !== data.id" type="text" nz-input [(ngModel)]="data.name" (blur)="stopEdit()" />
+      </td>
       <td>
         <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a>
       </td>

@@ -1,11 +1,4 @@
-.editable-cell {
-  position: relative;
-  padding: 5px 12px;
-  cursor: pointer;
-}
-
-.editable-row:hover .editable-cell {
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
-  padding: 4px 11px;
+.example-input .ant-input {
+  width: 200px;
+  margin: 0 8px 8px 0;
 }
