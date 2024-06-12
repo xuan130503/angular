@@ -1,23 +1,28 @@
-<div style="padding:  100px 0px 400px 0;">
-    <form class="max-w-sm mx-auto" [formGroup]="formLibrary" (ngSubmit)="Submit()">
-      <div class="mb-5">
-        <label for="libraryId" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> bookId</label>
-        <input formControlName="libraryId" id="libraryId" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
-      </div>
-          <div class="mb-5">
-            <label for="libraryName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> libraryName</label>
-            <input formControlName="libraryName" id="libraryName" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
-          </div>
-          <div class="mb-5">
-            <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> location</label>
-            <input formControlName="location" id="location" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
-          </div>
-          <!-- <div class="mb-5" >
-            <label for="books" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Books</label>
-            <input formArrayName="books" id="books" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
-          </div> -->
- 
-     
-        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-      </form>
-</div>
+<button nz-button (click)="addRow()" nzType="primary">Add</button>
+<br />
+<br />
+<nz-table #editRowTable nzBordered [nzData]="listOfData">
+  <thead>
+    <tr>
+      <th nzWidth="30%">Name</th>
+      <th>Age</th>
+      <th>Address</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of editRowTable.data" class="editable-row">
+      <td>
+        <div class="editable-cell" [hidden]="editId === data.id" (click)="startEdit(data.id)">
+          {{ data.name }}
+        </div>
+        <input [hidden]="editId !== data.id" type="text" nz-input [(ngModel)]="data.name" (blur)="stopEdit()" />
+      </td>
+      <td>{{ data.age }}</td>
+      <td>{{ data.address }}</td>
+      <td>
+        <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

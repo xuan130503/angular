@@ -1,60 +1,66 @@
-<div class="relative overflow-x-auto">
-  <button
-    type="button"
-    [routerLink]="['/librarybooks']"
-    class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-  >
-    Create library
-  </button>
-  <table
-    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-  >
-    <thead
-      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+<button
+type="button"
+[routerLink]="['/librariesadd']"
+class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+>
+Create library
+</button>
+<nz-table #nestedTable [nzData]="librarys" [nzPageSize]="10">
+  <thead>
+    <tr>
+      <th></th>
+      <th>libraryId</th>
+
+      <th>linraryname</th>
+      <th>location</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template ngFor let-data [ngForOf]="nestedTable.data"
     >
       <tr>
-        <th scope="col" class="px-6 py-3">Libraries ID</th>
-        <th scope="col" class="px-6 py-3">Libraries Name</th>
-        <th scope="col" class="px-6 py-3">Localtion</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let library of librarys"
-        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-      >
-        <th
-          scope="row"
-          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-        >
-          {{ library.libraryId }}
-        </th>
-        <th scope="col" class="px-6 py-3">
-          {{ library.libraryName }}
-        </th>
-        <th scope="col" class="px-6 py-3">
-          {{ library.location }}
-        </th>
+        <td [(nzExpand)]="data.expand"></td>
+        <td>{{ data.libraryId }}</td>
+        <td>{{ data.libraryName }}</td>
+        <td>{{ data.location }}</td>
 
-        <th scope="col" class="px-6 py-3">
-          <!-- <a href="#" [routerLink]="['/bookupdate', book.bookId]" class="btn btn-primary">Edit</a> -->
-          <button
-            type="button"
-            [routerLink]="['/libraryupdate', library.libraryId]"
-            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-          >
-            Edit Books
-          </button>
-          <button
-            type="button"
-            (click)="delete(library.libraryId)"
-            class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
-          >
-            Delete libraries
-          </button>
-        </th>
+        <td>
+          <!-- <a (click)="startEdit(data.libraryId)" style=" margin-right: 8px;">edit</a> -->
+<!--       
+          <a nz-popconfirm nzPopconfirmTitle="Sure to cancel?" (nzOnConfirm)="deleteLibrary(data.libraryId)">Delete</a> -->
+        </td>
       </tr>
-    </tbody>
-  </table>
-</div>
+
+      <tr [nzExpand]="data.expand">
+        <nz-table
+          #innerTable
+          [nzData]="data.books"
+          nzSize="middle"
+          [nzShowPagination]="false"
+        >
+          <thead>
+            <tr>
+              <th>bookId</th>
+              <th>bookTitle</th>
+              <th>author</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let book of innerTable.data">
+              <td>{{ book.bookId }}</td>
+
+              <td>{{ book.bookTitle }}</td>
+              <td>{{ book.author }}</td>
+         
+              <td>
+                <a nz-popconfirm nzPopconfirmTitle="Sure to cancel?" (nzOnConfirm)="deleteBooks(book.bookId)">Delete</a>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>

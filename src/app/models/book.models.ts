@@ -3,6 +3,4 @@ export interface Book {
   bookTitle: string;
   author: string;
   libraryId: number;
-  // libraryName: string;
-  // location: string;
 }

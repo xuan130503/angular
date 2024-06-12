@@ -37,7 +37,7 @@ ngOnInit(): void {
 
  submit(){
   const library = this.formlibrary.value as LibraryDto;
-  this.libraryService.update(this.libraryId,library).subscribe((data : any) => {
+  this.libraryService.update(library).subscribe((data : any) => {
     alert("update successfully");
     this.router.navigateByUrl('/libraries')
   })

@@ -1,31 +1,72 @@
 import { Component } from '@angular/core';
 import { LibraryDto } from '../../../models/library-dto.models';
 import { LibraryService } from '../../../auth/LibraryService/library.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { BooksService } from '../../../auth/BooksService/books.service';
+import { Book } from '../../../models/book.models';
 
 @Component({
   selector: 'app-library',
   standalone: true,
-  imports: [NgFor,FormsModule, ReactiveFormsModule,RouterModule],
+  imports: [
+    NgIf,
+    NgFor,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    NzTableModule,
+    NzPopconfirmModule,
+  ],
   templateUrl: './library.component.html',
   styleUrl: './library.component.css',
 })
 export class LibraryComponent {
-  librarys: LibraryDto[] = [];
+  editCache: { [key: number]: { edit: boolean; data: LibraryDto } } = {};
 
-  constructor(private libraryService: LibraryService) {}
+  librarys: LibraryDto[] = [];
+books : Book[] =[];
+
+  constructor(
+    private libraryService: LibraryService,
+    private bookService: BooksService
+  ) {}
 
   ngOnInit(): void {
+    this.getAllLibrary();
+  }
+
+  getAllLibrary(): void {
     this.libraryService.getAllLibrary().subscribe((data: LibraryDto[]) => {
-      this.librarys = data;
+      this.librarys = data.map<LibraryDto>((e) => ({
+        libraryId: e.libraryId,
+        libraryName: e.libraryName,
+        location: e.location,
+        books: e.books,
+        expand: e.books.length < 0 ? true : false,
+      }));
     });
   }
- delete(libraryId : number){
-  this.libraryService.delete(libraryId).subscribe(res => {
-    this.librarys = this.librarys.filter(item => item.libraryId != libraryId);
-    alert("Delete Successful")
-  })
- }
+
+
+  deleteLibrary(libraryId: number): void {
+    this.libraryService.delete(libraryId).subscribe(() => {
+      this.librarys = this.librarys.filter(
+        (item) => item.libraryId !== libraryId
+      );
+      alert('Delete Successful');
+    });
+  }
+
+
+  deleteBooks(bookId : number) : void{
+    this.bookService.deletebook(bookId).subscribe(() => {
+      this.books = this.books.filter((item) => item.bookId !== bookId),
+      alert("asjdi")
+    })
+  }
+
 }

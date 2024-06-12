@@ -8,33 +8,54 @@ import {
 } from '@angular/forms';
 import { LibraryService } from '../../../auth/LibraryService/library.service';
 import { Router } from '@angular/router';
-
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NgFor, NgIf } from '@angular/common';
+interface ItemData {
+  id: string;
+  name: string;
+  age: string;
+  address: string;
+}
 @Component({
   selector: 'app-library-add',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule,NzTableModule,NzPopconfirmModule,NgFor,NgIf],
   templateUrl: './library-add.component.html',
   styleUrl: './library-add.component.css',
 })
 export class LibraryAddComponent {
-  formLibrary!: FormGroup;
+  i = 0;
+  editId: string | null = null;
+  listOfData: ItemData[] = [];
 
-  constructor(private libraryService: LibraryService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.formLibrary = new FormGroup({
-      libraryId: new FormControl(''),
-      libraryName: new FormControl(''),
-      location: new FormControl(''),
-      books: new FormArray([]),
-    });
+  startEdit(id: string): void {
+    this.editId = id;
   }
 
-  Submit() {
-    console.log(this.formLibrary.value);
-    this.libraryService.create(this.formLibrary.value).subscribe((res: any) => {
-      alert('Post created successfully!');
-      this.router.navigateByUrl('libraries');
-    });
+  stopEdit(): void {
+    this.editId = null;
+  }
+
+  addRow(): void {
+    this.listOfData = [
+      ...this.listOfData,
+      {
+        id: `${this.i}`,
+        name: `Edward King ${this.i}`,
+        age: '32',
+        address: `London, Park Lane no. ${this.i}`
+      }
+    ];
+    this.i++;
+  }
+
+  deleteRow(id: string): void {
+    this.listOfData = this.listOfData.filter(d => d.id !== id);
+  }
+
+  ngOnInit(): void {
+    this.addRow();
+    this.addRow();
   }
 }
