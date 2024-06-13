@@ -1,49 +1,52 @@
+<form (ngSubmit)="addLibrary()" class="library-form">
+  <div class="library-grid">
+    <div class="form-group">
+      <label for="libraryName">Library Name:</label>
+      
+      <input
+        nz-input
+        placeholder="Library Name"
+        id="libraryName"
+        [(ngModel)]="library.libraryName"
+        name="libraryName"
+        nzSize="default"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <input
+        nz-input
+        placeholder="Location"
+        id="location"
+        [(ngModel)]="library.location"
+        name="location"
+        nzSize="default"
+        required
+      />
+    </div>
+  </div>
 
+  <div class="books-section">
+    <div class="book-grid" *ngFor="let book of library.books; let i = index">
+      <div class="form-group">
+        <label for="bookId">Book ID:</label>
+        <input type="number" id="bookId"  [(ngModel)]="book.bookId" name="bookId-{{i}}" required />
+      </div>
+      <div class="form-group">
+        <label for="bookTitle">Book Title:</label>
+        <input type="text" id="bookTitle" [(ngModel)]="book.bookTitle" name="bookTitle-{{i}}" required />
+      </div>
+      <div class="form-group">
+        <label for="author">Author:</label>
+        <input type="text" id="author" [(ngModel)]="book.author" name="author-{{i}}" required />
+      </div>
+      <button type="button" class="button-primary" (click)="removeBook(library, i)">Remove Book</button>
+    </div>
+    <button type="button" class="button-primary" (click)="addBook(library)">Add Book</button>
+  </div>
 
-
-<div class="example-input">
-  <input nz-input placeholder="large size" nzSize="large" />
-  <input nz-input placeholder="default size" nzSize="default" />
-  <input nz-input placeholder="small size" nzSize="small" />
-</div>
-
-
-
-<button nz-button (click)="addRow()" nzType="primary">Add</button>
-<br />
-<br />
-<nz-table #editRowTable nzBordered [nzData]="listOfData">
-  <thead>
-    <tr>
-      <th nzWidth="30%">Name</th>
-      <th>Age</th>
-      <th>Address</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of editRowTable.data" class="editable-row">
-      <td>
-        <div class="editable-cell" [hidden]="editId === data.id" (click)="startEdit(data.id)">
-          {{ data.name }}
-        </div>
-        <input [hidden]="editId !== data.id" type="text" nz-input [(ngModel)]="data.name" (blur)="stopEdit()" />
-      </td>
-      <td>
-        <div class="editable-cell" [hidden]="editId === data.id" (click)="startEdit(data.id)">
-          {{ data.age }}
-        </div>
-        <input [hidden]="editId !== data.id" type="text" nz-input [(ngModel)]="data.name" (blur)="stopEdit()" />
-      </td>
-      <td>
-        <div class="editable-cell" [hidden]="editId === data.id" (click)="startEdit(data.id)">
-          {{ data.address }}
-        </div>
-        <input [hidden]="editId !== data.id" type="text" nz-input [(ngModel)]="data.name" (blur)="stopEdit()" />
-      </td>
-      <td>
-        <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>
+  <div class="form-group submit-section">
+    <button type="submit" class="submit-button">Add Library</button>
+  </div>
+</form>

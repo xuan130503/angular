@@ -1,60 +1,72 @@
-<div style="padding: 100px 0px 400px 0">
-  <form
-    class="max-w-sm mx-auto"
-    [formGroup]="rentalForm"
-    (ngSubmit)="onSubmit()"
-  >
-    <div class="mb-5">
-      <label
-        for="bookId"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-      >
-        bookId</label
-      >
+<form (ngSubmit)="onSubmit()" class="rental-form">
+  <div class="grid-container">
+    <!-- <div class="form-group">
+      <label for="rentalId">Rental ID</label>
       <input
-        formControlName="bookId"
-        id="bookId"
-        type="text"
-        placeholder="bookId"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        [(ngModel)]="rental.rentalid"
+        name="rentalId"
+        id="rentalId"
+        type="number"
+        disabled
+        class="form-control"
       />
-    </div>
-    <div class="mb-5">
-      <label
-        for="libraryUserId"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-      >
-        libraryUserId</label
-      >
+    </div> -->
+
+    <!-- <div class="form-group">
+      <label for="rentalDate">Rental Date</label>
       <input
-        formControlName="userid"
-        id="libraryUserId"
-        type="text"
-        placeholder="libraryUserId"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      />
-    </div>
-    <div class="mb-5">
-      <label
-        for="rentalDate"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-      >
-        rentalDate</label
-      >
-      <input
-        formControlName="rentalDate"
+        [(ngModel)]="rental.rentalDate"
+        name="rentalDate"
         id="rentalDate"
         type="date"
-        placeholder="rentalDate"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="form-control"
+      />
+    </div> -->
+
+    <div class="form-group">
+      <label for="bookId">Book ID</label>
+      <input
+        [(ngModel)]="rental.bookid"
+        name="bookId"
+        id="bookId"
+        type="number"
+        class="form-control"
+        required
       />
     </div>
 
-    <button
-      type="submit"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-    >
-      Submit
-    </button>
-  </form>
-</div>
+    <!-- <div class="form-group">
+      <label for="userId">User ID</label>
+      <input
+        [(ngModel)]="rental.userid"
+        name="userId"
+        id="userId"
+        type="number"
+        class="form-control"
+        required
+      />
+    </div> -->
+
+    <div class="form-group">
+      <label
+        for="userId"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >User</label
+      >
+      <select
+        [(ngModel)]="rental.userid"
+        name="userid"
+        id="userid"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <ng-container *ngFor="let user of libraryUser">
+          <option [value]="user.libraryUserId">{{ user.firstName}} {{user.lastName}}</option>
+        </ng-container>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group submit-section">
+    <button type="submit" class="btn btn-primary">Save Rental</button>
+  </div>
+</form>

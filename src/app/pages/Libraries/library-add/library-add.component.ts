@@ -1,60 +1,99 @@
 import { Component } from '@angular/core';
 import {
   FormArray,
+  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
+  NgForm,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { LibraryService } from '../../../auth/LibraryService/library.service';
 import { Router } from '@angular/router';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NgFor, NgIf } from '@angular/common';
-interface ItemData {
-  id: string;
-  name: string;
-  age: string;
-  address: string;
-}
+import { LibraryDto } from '../../../models/library-dto.models';
+import { BooksService } from '../../../auth/BooksService/books.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-library-add',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,NzTableModule,NzPopconfirmModule,NgFor,NgIf],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NzTableModule,
+    NzPopconfirmModule,
+    NgFor,
+    NgIf,
+    FormsModule,
+  ],
   templateUrl: './library-add.component.html',
   styleUrl: './library-add.component.css',
 })
 export class LibraryAddComponent {
-  i = 0;
-  editId: string | null = null;
-  listOfData: ItemData[] = [];
+  libraries: LibraryDto[] = [];
+  library: LibraryDto = {
+    libraryId: 0,
+    libraryName: '',
+    location: '',
+    expand: false,
+    books: [],
+  };
 
-  startEdit(id: string): void {
-    this.editId = id;
+  constructor(
+    private libreryService: LibraryService,
+    private router: Router,
+    private bookService: BooksService
+  ) {}
+
+  ngOnInit(): void {}
+  addLibrary(): void {
+
+    if (this.library.books.some((book) => !book.bookTitle.trim()) || this.library.books.some((book) => !book.author.trim()) ) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Book Title is required for all books.',
+        icon: 'error',
+      });
+      return;
+    }
+
+    this.libreryService.create(this.library).subscribe(
+      (library) => {
+        // alert(' succussfull');console.log(library)
+        this.libraries.push(library);
+        this.library = {
+          libraryId: 0,
+          libraryName: '',
+          location: '',
+          expand: false,
+          books: [
+            {
+              bookId: 0,
+              bookTitle: '',
+              author: '',
+              libraryId: library.libraryId,
+            },
+          ],
+        };
+        Swal.fire({
+          title: 'Good job!',
+          text: 'You create successful',
+          icon: 'success',
+        });
+        this.router.navigateByUrl('libraries');
+      },
+      (error) => console.error(error)
+    );
   }
 
-  stopEdit(): void {
-    this.editId = null;
+  addBook(library: LibraryDto): void {
+    library.books.push({ bookId: 0, bookTitle: '', author: '', libraryId: 0 });
   }
 
-  addRow(): void {
-    this.listOfData = [
-      ...this.listOfData,
-      {
-        id: `${this.i}`,
-        name: `Edward King ${this.i}`,
-        age: '32',
-        address: `London, Park Lane no. ${this.i}`
-      }
-    ];
-    this.i++;
-  }
-
-  deleteRow(id: string): void {
-    this.listOfData = this.listOfData.filter(d => d.id !== id);
-  }
-
-  ngOnInit(): void {
-
+  removeBook(library: LibraryDto, index: number): void {
+    library.books.splice(index, 1);
   }
 }

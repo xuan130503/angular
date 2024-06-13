@@ -8,6 +8,8 @@ import { RentalsDto } from '../../models/RentalsDto';
 })
 export class RentalsService {
   private apiUrl = 'http://localhost:5013/api/rentals';
+
+  private url ='http://localhost:5013/api/libraryUser';
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<any> {
@@ -29,4 +31,11 @@ export class RentalsService {
   Delete(rentalId: number) {
     return this.http.delete(this.apiUrl + '/' + rentalId);
   }
+
+getallLIbraryUser():Observable<any>{
+  return this.http.get(this.url);
+}
+
+
+
 }

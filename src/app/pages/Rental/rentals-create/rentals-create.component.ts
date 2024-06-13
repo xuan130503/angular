@@ -9,6 +9,10 @@ import {
 import { RentalsService } from '../../../auth/RentalsService/rentals.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { RentalsDto } from '../../../models/RentalsDto';
+import { Book } from '../../../models/book.models';
+import { LibraryUserDto } from '../../../models/LibraryUserDto';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-rentals-create',
@@ -25,32 +29,32 @@ import { RouterModule } from '@angular/router';
   styleUrl: './rentals-create.component.css',
 })
 export class RentalsCreateComponent {
-  constructor(
-    private rentalsService: RentalsService,
-    private fb: FormBuilder
-  ) {}
-  rentalForm!: FormGroup;
+  libraryUser : LibraryUserDto[] =[];
+  rental: RentalsDto = {
+    rentalid: 0,
+    rentalDate: new Date,
+    returnDate: null,
+    bookid: 0,
+    userid: 0,
+    book: {} as Book,
+    libraryUser: {} as LibraryUserDto,
+  };
+libraryIds: any;
+
+  constructor(private rentalsService: RentalsService) {}
   ngOnInit(): void {
-    this.rentalForm = this.fb.group({
-      bookId: ['', Validators.required],
-      userid: ['', Validators.required],
-      rentalDate: [new Date().toISOString().split('T')[0], Validators.required], // Set current date
-      // returnDate: [''],
-    });
+    this.rentalsService.getallLIbraryUser().subscribe((data : LibraryUserDto[]) => {
+      this.libraryUser = data;
+    })
   }
 
   onSubmit(): void {
-    if (this.rentalForm.valid) {
-      this.rentalsService.Create(this.rentalForm.value).subscribe(
-        (response) => {
-          console.log('Rental created successfully:', response);
-          // Optionally reset the form or navigate to another page
-          this.rentalForm.reset();
-        },
-        (error) => {
-          console.error('Error creating rental:', error);
-        }
-      );
-    }
+    this.rentalsService.Create(this.rental).subscribe((rental) => {
+      Swal.fire({
+        title: "Good job!",
+        text: "You create successful",
+        icon: "success"
+      });
+    })
   }
 }

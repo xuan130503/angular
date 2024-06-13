@@ -1,4 +1,61 @@
-.example-input .ant-input {
-  width: 200px;
-  margin: 0 8px 8px 0;
+.library-form {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.books-section {
+  margin-bottom: 20px;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.library-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.button-primary {
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.button-primary:hover {
+  background-color: #40a9ff; /* Darker shade when hovering */
+}
+
+.submit-section {
+  text-align: center;
+}
+
+.submit-button {
+  background-color: #52c41a;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #73d13d; /* Darker shade when hovering */
 }

@@ -62,10 +62,10 @@ books : Book[] =[];
   }
 
 
-  deleteBooks(bookId : number) : void{
+  deleteBooks(bookId : number) {
     this.bookService.deletebook(bookId).subscribe(() => {
-      this.books = this.books.filter((item) => item.bookId !== bookId),
-      alert("asjdi")
+      this.books = this.books.filter(item => item.bookId !== bookId),
+      alert("Xoa thanh cong")
     })
   }
 
