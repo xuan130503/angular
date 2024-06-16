@@ -1,0 +1,74 @@
+<button
+  type="button"
+  [routerLink]="['/rentalCreate']"
+  class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+>
+  Create Rental
+</button>
+
+<div>
+  <select (change)="onFilterChange($event)">
+    <option value="all">All Rentals</option>
+    <option value="true">Returned Rentals</option>
+    <option value="false">Active Rentals</option>
+  </select>
+</div>
+
+<div *ngIf="rentals.length > 0; else noRentals">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>Rental ID</th>
+        <th>Rental Date</th>
+        <th>Return Date</th>
+        <th>Book Title</th>
+        <th>User Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rental of rentals">
+        <td>{{ rental.rentalid }}</td>
+        <td>{{ rental.rentalDate | date }}</td>
+        <td *ngIf="!editCache[rental.rentalid]?.edit">
+          {{ rental.returnDate | date }}
+        </td>
+        <td *ngIf="editCache[rental.rentalid]?.edit">
+          <input
+            [(ngModel)]="editCache[rental.rentalid].data.returnDate"
+            type="date"
+          />
+        </td>
+        <td>{{ rental.book.bookTitle }}</td>
+        <td>
+          {{ rental.libraryUser.firstName }} {{ rental.libraryUser.lastName }}
+        </td>
+        <td>
+          <button
+            *ngIf="!editCache[rental.rentalid]?.edit"
+            (click)="startEdit(rental.rentalid)"
+          >
+            Edit
+          </button>
+          <button
+            *ngIf="editCache[rental.rentalid]?.edit"
+            (click)="saveEdit(rental.rentalid)"
+          >
+            Save
+          </button>
+          <button
+            *ngIf="editCache[rental.rentalid]?.edit"
+            (click)="cancelEdit(rental.rentalid)"
+          >
+            Cancel
+          </button>
+          <button (click)="deleteRental(rental.rentalid)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #noRentals>
+  <p>No rentals found.</p>
+</ng-template>

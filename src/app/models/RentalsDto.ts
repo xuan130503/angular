@@ -3,10 +3,14 @@ import { Book } from './book.models';
 
 export interface RentalsDto {
   rentalid: number;
-  rentalDate?: Date;
+  rentalDate?: Date | null;
   returnDate?: Date | null;
-  bookid: number;
-  userid: number;
+  bookId: number;
+  userId: number;
   book: Book;
   libraryUser: LibraryUserDto;
+}
+
+export interface UpdateRentalDto {
+  returnDate?: Date | null;
 }

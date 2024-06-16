@@ -9,8 +9,10 @@ import { LibraryUpdateComponent } from './pages/Libraries/library-update/library
 import { authGuard } from './auth/auth/auth.guard';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { LibraryBooksComponent } from './pages/Libraries/library-books/library-books.component';
-import { RentalsComponent } from './pages/Rental/rentals/rentals.component';
 import { RentalsCreateComponent } from './pages/Rental/rentals-create/rentals-create.component';
+import { RentalsAllComponent } from './pages/Rental/rentals-all/rentals-all.component';
+import { RentalUpdateComponent } from './pages/Rental/rental-update/rental-update.component';
+import { RentalCalendarComponent } from './pages/Rental/rental-calendar/rental-calendar.component';
 export const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: '/welcome' },
   // {
@@ -32,6 +34,8 @@ export const routes: Routes = [
   { path: 'libraryupdate/:libraryId', component: LibraryUpdateComponent },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'librarybooks', component: LibraryBooksComponent },
-  { path: 'rental', component: RentalsComponent },
   { path: 'rentalCreate', component: RentalsCreateComponent },
+  { path: 'getAllRental', component: RentalsAllComponent },
+  { path: 'rentalUpdate', component: RentalUpdateComponent },
+  { path: 'dashboard', component: RentalCalendarComponent },
 ];
