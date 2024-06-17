@@ -1,34 +1,9 @@
-<nz-calendar
-  [(ngModel)]="date"
-  [(nzMode)]="mode"
-  (nzPanelChange)="panelChange($event)"
-></nz-calendar>
-
-<div *ngIf="filteredRentals.length > 0; else noRentals">
-  <table class="styled-table">
-    <thead>
-      <tr>
-        <th>Rental ID</th>
-        <th>Rental Date</th>
-        <th>Return Date</th>
-        <th>Book Title</th>
-        <th>User Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let rental of filteredRentals">
-        <td>{{ rental.rentalid }}</td>
-        <td>{{ rental.rentalDate | date }}</td>
-        <td>{{ rental.returnDate | date }}</td>
-        <td>{{ rental.book.bookTitle }}</td>
-        <td>
-          {{ rental.libraryUser.firstName }} {{ rental.libraryUser.lastName }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<ng-template #noRentals>
-  <p>No rentals found for the selected period.</p>
-</ng-template>
+<nz-calendar>
+  <ul *nzDateCell="let date" class="events">
+    <div *ngFor="let item of triggerList(date)" style="color: rgb(79, 192, 79);"> 
+        <li class="text-xs font-medium" [ngClass]="{'text-red-500': !item.returnDate,}" >
+            {{item.libraryUser.firstName}}  {{item.libraryUser.lastName}} : {{item.book.bookTitle}}
+        </li>
+    </div>
+  </ul>
+</nz-calendar>

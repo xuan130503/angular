@@ -13,7 +13,7 @@ export class RentalsService {
 
   private url = 'http://localhost:5013/api/libraryUser';
   constructor(private http: HttpClient) {}
-  getAllRentals(isReturn: boolean | null): Observable<any[]> {
+  getAllRentals(isReturn: boolean | null): Observable<RentalsDto[]> {
     let params = new HttpParams();
     if (isReturn !== null) {
       params = params.append('isReturn', String(isReturn));

@@ -6,7 +6,7 @@ class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-
 >
 Create Books
 </button>
-<nz-table #editRowTable nzBordered nzTableLayout="fixed"> 
+<nz-table #basicTable [nzData]="books">
   <thead>
     <tr>
       <th nzWidth="15%">BookId</th>
@@ -17,7 +17,7 @@ Create Books
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let book of books">
+    <tr *ngFor="let book of basicTable.data">
       <ng-container *ngIf="!editCache[book.bookId]?.edit; else editTemplate">
         <td>{{ book.bookId }}</td>
         <td>{{ book.bookTitle }}</td>

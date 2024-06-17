@@ -1,16 +1,23 @@
 import { Component } from '@angular/core';
 import { RentalsService } from '../../../auth/RentalsService/rentals.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { RentalsDto, UpdateRentalDto } from '../../../models/RentalsDto';
 import Swal from 'sweetalert2';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 @Component({
   selector: 'app-rentals-all',
   standalone: true,
-  imports: [FormsModule, NgFor, NzTableModule, CommonModule, NgIf, RouterLink],
+  imports: [ ReactiveFormsModule,
+    FormsModule,
+    NgFor,
+    CommonModule,
+    RouterModule,
+    NzTableModule,
+    NzPopconfirmModule],
   templateUrl: './rentals-all.component.html',
   styleUrl: './rentals-all.component.css',
 })
@@ -22,7 +29,6 @@ export class RentalsAllComponent {
   constructor(private rentalService: RentalsService) {}
 
   ngOnInit(): void {
-    this.loadRentals();
   }
 
   loadRentals(): void {
@@ -30,12 +36,13 @@ export class RentalsAllComponent {
       (data) => {
         this.rentals = data;
         this.updateEditCache();
+     
       },
       (error) => console.error(error)
     );
   }
 
-  onFilterChange(event: any): void {
+  onFilterChange(event?: any): void {
     const value = event.target.value;
     this.isReturn = value === 'all' ? null : value === 'true';
     this.loadRentals();

@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import {
-  FormBuilder,
-  FormGroup,
+
   FormsModule,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { RentalsService } from '../../../auth/RentalsService/rentals.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { RentalsDto } from '../../../models/RentalsDto';
 import { Book } from '../../../models/book.models';
 import { LibraryUserDto } from '../../../models/LibraryUserDto';
 import Swal from 'sweetalert2';
 import { BooksService } from '../../../auth/BooksService/books.service';
-import { da_DK } from 'ng-zorro-antd/i18n';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @Component({
   selector: 'app-rentals-create',
@@ -26,6 +26,9 @@ import { da_DK } from 'ng-zorro-antd/i18n';
     NgIf,
     CommonModule,
     RouterModule,
+    NzTableModule,
+    NzPopconfirmModule,
+    NzSelectModule 
   ],
   templateUrl: './rentals-create.component.html',
   styleUrl: './rentals-create.component.css',
@@ -46,7 +49,7 @@ export class RentalsCreateComponent {
 
   constructor(
     private rentalsService: RentalsService,
-    private bookService: BooksService
+    private bookService: BooksService, private router : Router
   ) {}
   ngOnInit(): void {
     this.rentalsService
@@ -61,6 +64,7 @@ export class RentalsCreateComponent {
 
   onSubmit(): void {
     this.rentalsService.Create(this.rental).subscribe((rental) => {
+      this.router.navigateByUrl('/getAllRental');
       Swal.fire({
         title: 'Good job!',
         text: 'You create successful',

@@ -4,46 +4,58 @@ import { NzCalendarMode, NzCalendarModule } from 'ng-zorro-antd/calendar';
 import { RentalsDto } from '../../../models/RentalsDto';
 import { RentalsService } from '../../../auth/RentalsService/rentals.service';
 import { CommonModule } from '@angular/common';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { log } from 'console';
+import moment from 'moment';
+import { NgLoadingTextTemplateDirective } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-rental-calendar',
   standalone: true,
-  imports: [FormsModule, NzCalendarModule, CommonModule],
+  imports: [
+    FormsModule,
+    NzCalendarModule,
+    CommonModule,
+    CommonModule,
+    NzBadgeModule,
+  ],
   templateUrl: './rental-calendar.component.html',
   styleUrl: './rental-calendar.component.css',
 })
 export class RentalCalendarComponent {
-  date: Date = new Date();
-  mode: 'month' | 'year' = 'month';
   rentals: RentalsDto[] = [];
-  filteredRentals: RentalsDto[] = [];
+  filteredRentals: { [key: string]: RentalsDto[] } = {};
   constructor(private rentalService: RentalsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getRentals();
+  }
 
   getRentals(): void {
     this.rentalService.getAllRentals(null).subscribe((data) => {
       this.rentals = data;
+      this.prepareCalendarData();
     });
   }
-  panelChange(change: { date: Date; mode: 'month' | 'year' }): void {
-    this.date = change.date;
-    this.mode = change.mode;
+
+  prepareCalendarData(): void {
+    let start = moment().startOf('M');
+    let end = moment().endOf('M');
+
+    for (let i = start; i < end; i = i.add(1, 'd')) {
+      let item = this.rentals.filter(
+        (e) =>
+          moment(e.rentalDate).format('DD-MM-yyyy') ==
+          moment(i).format('DD-MM-yyyy')
+      );
+      if (item.length) {
+        this.filteredRentals[moment(i).format('DD-MM-yyyy').toString()] = item;
+      }
+    }
   }
-  // filterRentals(): void {
-  //   const startDate = new Date(
-  //     this.date.getFullYear(),
-  //     this.date.getMonth(),
-  //     1
-  //   );
-  //   const endDate = new Date(
-  //     this.date.getFullYear(),
-  //     this.date.getFullYear() + 1,
-  //     0
-  //   );
-  //   this.filteredRentals = this.rentals.filter((rental) => {
-  //     const rentalDate = new Date(rental.rentalDate);
-  //     return rentalDate >= startDate && rentalDate <= endDate;
-  //   });
-  // }
+
+  triggerList(date: Date) {
+    let key = moment(date).format('DD-MM-yyyy').toString();    
+    return this.filteredRentals[key] ? this.filteredRentals[key] : [];
+  }
 }
