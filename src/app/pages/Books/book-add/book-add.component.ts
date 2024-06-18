@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { BooksService } from '../../../auth/BooksService/books.service';
 import { LibraryDto } from '../../../models/library-dto.models';
@@ -15,7 +15,8 @@ import { LibraryDto } from '../../../models/library-dto.models';
 @Component({
   selector: 'app-book-add',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgFor, NgIf],
+  imports: [FormsModule, ReactiveFormsModule, NgFor, NgIf  ,  FormsModule,RouterModule
+  ],
   templateUrl: './book-add.component.html',
   styleUrl: './book-add.component.css',
 })

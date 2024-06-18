@@ -1,3 +1,11 @@
+<div>
+  <button
+type="button"
+[routerLink]="['/libraries']"
+class="float-right focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+>
+Back
+</button>
 <form (ngSubmit)="addLibrary()" class="library-form">
   <div class="library-grid">
     <div class="form-group">
@@ -29,10 +37,10 @@
 
   <div class="books-section">
     <div class="book-grid" *ngFor="let book of library.books; let i = index">
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="bookId">Book ID:</label>
         <input type="number" id="bookId"  [(ngModel)]="book.bookId" name="bookId-{{i}}" required />
-      </div>
+      </div> -->
       <div class="form-group">
         <label for="bookTitle">Book Title:</label>
         <input type="text" id="bookTitle" [(ngModel)]="book.bookTitle" name="bookTitle-{{i}}" required />
@@ -50,3 +58,5 @@
     <button type="submit" class="submit-button">Add Library</button>
   </div>
 </form>
+
+</div>

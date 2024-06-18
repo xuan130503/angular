@@ -15,6 +15,7 @@ import { BooksService } from '../../../auth/BooksService/books.service';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { log } from 'console';
 
 @Component({
   selector: 'app-rentals-create',
@@ -38,7 +39,7 @@ export class RentalsCreateComponent {
   book: Book[] = [];
   rental: RentalsDto = {
     rentalid: 0,
-    rentalDate: new Date(),
+    rentalDate: null,
     returnDate: null,
     bookId: 0,
     userId: 0,
@@ -49,17 +50,18 @@ export class RentalsCreateComponent {
 
   constructor(
     private rentalsService: RentalsService,
-    private bookService: BooksService, private router : Router
+    private bookService: BooksService,
+    private router: Router
   ) {}
+
   ngOnInit(): void {
-    this.rentalsService
-      .getallLIbraryUser()
-      .subscribe((data: LibraryUserDto[]) => {
-        this.libraryUser = data;
-      }),
-      this.bookService.getAll().subscribe((data: Book[]) => {
-        this.book = data;
-      });
+    this.rentalsService.getallLIbraryUser().subscribe((data: LibraryUserDto[]) => {
+      this.libraryUser = data;
+    });
+    
+    this.bookService.getAll().subscribe((data: Book[]) => {
+      this.book = data;
+    });
   }
 
   onSubmit(): void {

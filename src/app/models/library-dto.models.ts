@@ -1,7 +1,7 @@
 import { Book } from "./book.models";
 
 export interface LibraryDto {
-    libraryId?: number;
+    libraryId: number;
     libraryName: string;
     location: string;
     expand: boolean;

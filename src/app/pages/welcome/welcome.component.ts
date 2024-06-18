@@ -1,32 +1,37 @@
-import {
-  HTTP_INTERCEPTORS,
-  HttpClient,
-  HttpClientModule,
-} from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../auth/AuthService/auth.service';
-import { AuthInterceptorService } from '../../auth/auth-interceptor.service';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+
 
 @Component({
   selector: 'app-welcome',
   standalone: true,
-  providers: [
-    AuthService,
-
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    NzIconModule,
+    NzLayoutModule,
+    NzMenuModule,
+    RouterLink,
   ],
-  imports: [FormsModule, HttpClientModule],
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.css'],
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent {
+   currentTime!: string;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  isCollapsed = false;
+  ngOnInit(): void {
+    this.updateTime();
+    setInterval(() => this.updateTime(), 1000);
+  }
 
-  ngOnInit() {
-    // this.http.get('http://localhost:5013/WeatherForecast').subscribe((data) => {
-    //   console.log(data);
-    // });
+  updateTime(): void {
+    const now = new Date();
+    this.currentTime = now.toLocaleTimeString();
   }
 
 }

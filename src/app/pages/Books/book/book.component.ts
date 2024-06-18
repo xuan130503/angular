@@ -41,9 +41,8 @@ export class BookComponent {
   }
 
   startEdit(id: number): void {
-    var edit =this.editCache[id].edit = true;
-    console.log(edit);
-    
+  this.editCache[id].edit = true;
+  
   }
 
   cancelEdit(id: number): void {
@@ -55,13 +54,14 @@ export class BookComponent {
     console.log(index);
   }
 
+
   saveEdit(id: number): void {
     const updateBook = this.editCache[id].data;
     this.bookService.updateBook(updateBook).subscribe(() => {
       const index = this.books.findIndex((item) => item.bookId == id);
       Object.assign(this.books[index], updateBook);
       this.editCache[id].edit = false;
-      alert('update thanh cong');
+      
     });
   }
 

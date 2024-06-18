@@ -7,44 +7,48 @@ import { RouterLink, RouterModule } from '@angular/router';
 import { RentalsDto, UpdateRentalDto } from '../../../models/RentalsDto';
 import Swal from 'sweetalert2';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { provideClientHydration } from '@angular/platform-browser';
+import moment from 'moment';
 @Component({
   selector: 'app-rentals-all',
   standalone: true,
-  imports: [ ReactiveFormsModule,
+  imports: [
+    ReactiveFormsModule,
     FormsModule,
     NgFor,
     CommonModule,
     RouterModule,
     NzTableModule,
-    NzPopconfirmModule],
+    NzPopconfirmModule,
+    NzSelectModule,
+  ],
   templateUrl: './rentals-all.component.html',
   styleUrl: './rentals-all.component.css',
 })
 export class RentalsAllComponent {
   rentals: RentalsDto[] = [];
-  editCache: { [key: number]: { edit: boolean; data: RentalsDto } } = {};
   isReturn: boolean | null = null;
+  editCache: { [key: number]: { edit: boolean; data: RentalsDto } } = {};
 
   constructor(private rentalService: RentalsService) {}
 
   ngOnInit(): void {
+    this.loadRentals();
   }
 
   loadRentals(): void {
-    this.rentalService.getAllRentals(this.isReturn).subscribe(
-      (data) => {
-        this.rentals = data;
+    this.rentalService
+      .getAllRentals(this.isReturn).subscribe((data: RentalsDto[]) => {
+ this.rentals = data;
         this.updateEditCache();
-     
-      },
-      (error) => console.error(error)
-    );
+      });
   }
 
   onFilterChange(event?: any): void {
-    const value = event.target.value;
-    this.isReturn = value === 'all' ? null : value === 'true';
+    const value = event;
+    this.isReturn =
+      value === 'all' ? null : value === 'returnRentals' ? true : false;
     this.loadRentals();
   }
 

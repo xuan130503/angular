@@ -10,7 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { LibraryService } from '../../../auth/LibraryService/library.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NgFor, NgIf } from '@angular/common';
@@ -28,6 +28,7 @@ import Swal from 'sweetalert2';
     NgFor,
     NgIf,
     FormsModule,
+    RouterModule
   ],
   templateUrl: './library-add.component.html',
   styleUrl: './library-add.component.css',

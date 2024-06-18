@@ -1,9 +1,14 @@
 <nz-calendar>
   <ul *nzDateCell="let date" class="events">
-    <div *ngFor="let item of triggerList(date)" style="color: rgb(79, 192, 79);"> 
-        <li class="text-xs font-medium" [ngClass]="{'text-red-500': !item.returnDate,}" >
-            {{item.libraryUser.firstName}}  {{item.libraryUser.lastName}} : {{item.book.bookTitle}}
-        </li>
+    <div *ngFor="let item of triggerList(date)" style="color: rgb(79, 192, 79)">
+      <li
+        class="text-xs font-medium"
+        [ngClass]="{'text-red-500': !item.returnDate,}"
+      >
+        {{ item.rentalDate | date : "h" }}
+        {{ item.libraryUser.firstName + item.libraryUser.lastName }} -
+        {{ item.book.bookTitle }}
+      </li>
     </div>
   </ul>
 </nz-calendar>

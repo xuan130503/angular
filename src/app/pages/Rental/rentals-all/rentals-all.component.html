@@ -6,69 +6,64 @@
   Create Rental
 </button>
 
-<div>
-  <select (change)="onFilterChange($event)">
-    <!-- <option value="all">All Rentals</option> -->
-    <option value="true">Returned Rentals</option>
-    <option value="false">Active Rentals</option>
-  </select>
-</div>
+<nz-select [ngModel]="'all'" (ngModelChange)="onFilterChange($event)">
+  <nz-option nzValue="all" nzLabel="Rental All"></nz-option>
+  <nz-option nzValue="returnRentals" nzLabel="Returned Rentals"></nz-option>
+  <nz-option nzValue="rentals" nzLabel="Active Rentals"></nz-option>
+</nz-select>
 
-<div *ngIf="rentals.length > 0; else noRentals">
-  <nz-table #basicTable [nzData]="rentals">
-    <thead>
-      <tr>
-        <th>Rental ID</th>
-        <th>Rental Date</th>
-        <th>Return Date</th>
-        <th>Book Title</th>
-        <th>User Name</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let rental of basicTable.data">
-        <td>{{ rental.rentalid }}</td>
-        <td>{{ rental.rentalDate | date }}</td>
-        <td *ngIf="!editCache[rental.rentalid]?.edit">
-          {{ rental.returnDate | date }}
-        </td>
-        <td *ngIf="editCache[rental.rentalid]?.edit">
-          <input
-            [(ngModel)]="editCache[rental.rentalid].data.returnDate"
-            type="date"
-          />
-        </td>
-        <td>{{ rental.book.bookTitle }}</td>
-        <td>
-          {{ rental.libraryUser.firstName }} {{ rental.libraryUser.lastName }}
-        </td>
-        <td>
-          <button
-            *ngIf="!editCache[rental.rentalid]?.edit"
-            (click)="startEdit(rental.rentalid)"
-          >
-            Edit
-          </button>
-          <button
-            *ngIf="editCache[rental.rentalid]?.edit"
-            (click)="saveEdit(rental.rentalid)"
-          >
-            Save
-          </button>
-          <button
-            *ngIf="editCache[rental.rentalid]?.edit"
-            (click)="cancelEdit(rental.rentalid)"
-          >
-            Cancel
-          </button>
-          <button (click)="deleteRental(rental.rentalid)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </nz-table>
-</div>
-
-<ng-template #noRentals>
-  <p>No rentals found.</p>
-</ng-template>
+<nz-table ngSkipHydration #basicTable [nzData]="rentals">
+  <thead>
+    <tr>
+      <th>Rental ID</th>
+      <th>Rental Date</th>
+      <th>Return Date</th>
+      <th>Book Title</th>
+      <th>User Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rental of basicTable.data">
+      <td>{{ rental.rentalid }}</td>
+      <td>{{ rental.rentalDate | date : "dd/MM/yyyy h" }}</td>
+      <td *ngIf="!editCache[rental.rentalid]?.edit">
+        {{ rental.returnDate | date : "dd/MM/yyyy h" }}
+      </td>
+      <td *ngIf="editCache[rental.rentalid]?.edit">
+        <input
+          [(ngModel)]="editCache[rental.rentalid].data.returnDate"
+          type="date"
+        />
+      </td>
+      <td>{{ rental.book.bookTitle }}</td>
+      <td>
+        {{ rental.libraryUser.firstName }} {{ rental.libraryUser.lastName }}
+      </td>
+      <td>
+        <button
+          style="margin-right: 8px"
+          *ngIf="!editCache[rental.rentalid]?.edit"
+          (click)="startEdit(rental.rentalid)"
+        >
+          Edit
+        </button>
+        <button
+          style="margin-right: 8px"
+          *ngIf="editCache[rental.rentalid]?.edit"
+          (click)="saveEdit(rental.rentalid)"
+        >
+          Save
+        </button>
+        <button
+          style="margin-right: 8px"
+          *ngIf="editCache[rental.rentalid]?.edit"
+          (click)="cancelEdit(rental.rentalid)"
+        >
+          Cancel
+        </button>
+        <button (click)="deleteRental(rental.rentalid)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

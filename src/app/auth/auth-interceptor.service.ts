@@ -7,9 +7,11 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
+import { AuthService } from './AuthService/auth.service';
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
+
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -31,4 +33,5 @@ export class AuthInterceptorService implements HttpInterceptor {
     }
     return next.handle(req);
   }
+
 }

@@ -17,14 +17,6 @@ export class AuthService {
   signup(data: any) {
     return this.http.post(`${apiUrl}/register`, data);
   }
-  // login(data: any) {
-  //   return this.http.post(`${apiUrl}/login`, data).pipe(
-  //     tap((result) => {
-  //       localStorage.setItem('accessToken', JSON.stringify(result));
-  //     })
-  //   );
-  // }
-
   login(data: any): Observable<any> {
     return this.http.post(apiUrl + `/login`, data,httpOptions);
   }
@@ -35,4 +27,9 @@ export class AuthService {
   isLoggedIn() {
     return localStorage.getItem('accessToken');
   }
+  logOut() {
+    return localStorage.removeItem('accessToken')
+  }
+
+
 }
