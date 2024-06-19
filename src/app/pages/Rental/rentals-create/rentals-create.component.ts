@@ -39,7 +39,7 @@ export class RentalsCreateComponent {
   book: Book[] = [];
   rental: RentalsDto = {
     rentalid: 0,
-    rentalDate: null,
+    rentalDate: new Date(),
     returnDate: null,
     bookId: 0,
     userId: 0,

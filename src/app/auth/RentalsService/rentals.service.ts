@@ -9,18 +9,23 @@ import { RentalsDto, UpdateRentalDto } from '../../models/RentalsDto';
 export class RentalsService {
   private apiUrl = 'http://localhost:5013/api/rentals';
 
-  // private apiUrls ='http://localhost:5013/api/rentals?isRetun=false'
-
   private url = 'http://localhost:5013/api/libraryUser';
   constructor(private http: HttpClient) {}
-  getAllRentals(isReturn: boolean | null): Observable<RentalsDto[]> {
+
+  getAllRentals(isReturn: boolean |null ,start:string | null,  end:string |null): Observable<RentalsDto[]> {
+
     let params = new HttpParams();
     if (isReturn !== null) {
       params = params.append('isReturn', String(isReturn));
+    }if (start !== null) {
+      params = params.append('start', start);
+    }if (end !== null) {
+      params = params.append('end', end);
     }
-    const url = `${this.apiUrl}/`;
+    const url = `${this.apiUrl}`;
     return this.http.get<any[]>(url, { params });
   }
+
   getAll(): Observable<any> {
     return this.http.get(this.apiUrl);
   }

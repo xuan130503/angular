@@ -31,6 +31,9 @@ export class RentalsAllComponent {
   isReturn: boolean | null = null;
   editCache: { [key: number]: { edit: boolean; data: RentalsDto } } = {};
 
+  start : string | null = null;
+  end : string | null = null;
+
   constructor(private rentalService: RentalsService) {}
 
   ngOnInit(): void {
@@ -39,7 +42,7 @@ export class RentalsAllComponent {
 
   loadRentals(): void {
     this.rentalService
-      .getAllRentals(this.isReturn).subscribe((data: RentalsDto[]) => {
+      .getAllRentals(this.isReturn, this.start,this.end).subscribe((data: RentalsDto[]) => {
  this.rentals = data;
         this.updateEditCache();
       });

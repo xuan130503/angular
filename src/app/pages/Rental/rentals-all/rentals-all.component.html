@@ -26,9 +26,11 @@
   <tbody>
     <tr *ngFor="let rental of basicTable.data">
       <td>{{ rental.rentalid }}</td>
-      <td>{{ rental.rentalDate | date : "dd/MM/yyyy h" }}</td>
+      <td>{{ rental.rentalDate | date :  "HH:mm" }}</td>
+ 
       <td *ngIf="!editCache[rental.rentalid]?.edit">
-        {{ rental.returnDate | date : "dd/MM/yyyy h" }}
+        {{ rental.returnDate | date : "HH:mm" }}
+       
       </td>
       <td *ngIf="editCache[rental.rentalid]?.edit">
         <input

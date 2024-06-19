@@ -6,7 +6,7 @@ import { RentalsService } from '../../../auth/RentalsService/rentals.service';
 import { CommonModule } from '@angular/common';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { log } from 'console';
-import moment from 'moment';
+import moment, { months } from 'moment';
 import { NgLoadingTextTemplateDirective } from '@ng-select/ng-select';
 
 @Component({
@@ -25,6 +25,7 @@ import { NgLoadingTextTemplateDirective } from '@ng-select/ng-select';
 export class RentalCalendarComponent {
   rentals: RentalsDto[] = [];
   filteredRentals: { [key: string]: RentalsDto[] } = {};
+  selectedMonth: Date = new Date();
   constructor(private rentalService: RentalsService) {}
 
   ngOnInit(): void {
@@ -32,30 +33,44 @@ export class RentalCalendarComponent {
   }
 
   getRentals(): void {
-    this.rentalService.getAllRentals(null).subscribe((data) => {
-      this.rentals = data;
-      this.prepareCalendarData();
-    });
+    const start = moment(this.selectedMonth).startOf('month').toISOString();
+    const end = moment(this.selectedMonth).endOf('month').toISOString();
+
+    this.rentalService
+      .getAllRentals(null, start, end)
+      .subscribe((data: RentalsDto[]) => {
+        this.rentals = data;
+        this.prepareCalendarData();
+      });
   }
 
   prepareCalendarData(): void {
-    let start = moment().startOf('M');
-    let end = moment().endOf('M');
+    let start = moment(this.selectedMonth).startOf('month');
+    let end = moment(this.selectedMonth).endOf('month');
 
-    for (let i = start; i < end; i = i.add(1, 'd')) {
+    for (let i = start; i <= end; i = i.add(1, 'd')) {
+      var date = moment(i).format('yyyy-MM-DD');
       let item = this.rentals.filter(
-        (e) =>
-          moment(e.rentalDate).format('DD-MM-yyyy') ==
-          moment(i).format('DD-MM-yyyy')
+        (e) => moment(e.rentalDate).format('yyyy-MM-DD') === date
       );
+
       if (item.length) {
-        this.filteredRentals[moment(i).format('DD-MM-yyyy').toString()] = item;
+        this.filteredRentals[moment(i).format('yyyy-MM-DD').toString()] = item;
+       
       }
     }
   }
 
-  triggerList(date: Date) {
-    let key = moment(date).format('DD-MM-yyyy').toString();    
-    return this.filteredRentals[key] ? this.filteredRentals[key] : [];
+  triggerList(date: Date): RentalsDto[] {
+    const key = moment(date).format('yyyy-MM-DD');
+    return this.filteredRentals[key] || [];
   }
+  onMonthChange(date: Date): void {
+    this.selectedMonth = date;
+    this.getRentals();
+    
+  }
+
+
+
 }

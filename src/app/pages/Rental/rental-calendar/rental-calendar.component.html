@@ -1,14 +1,13 @@
-<nz-calendar>
+<nz-calendar [(ngModel)]="selectedMonth" (nzSelectChange)="onMonthChange($event)">
   <ul *nzDateCell="let date" class="events">
-    <div *ngFor="let item of triggerList(date)" style="color: rgb(79, 192, 79)">
-      <li
-        class="text-xs font-medium"
-        [ngClass]="{'text-red-500': !item.returnDate,}"
-      >
-        {{ item.rentalDate | date : "h" }}
-        {{ item.libraryUser.firstName + item.libraryUser.lastName }} -
-        {{ item.book.bookTitle }}
-      </li>
-    </div>
+    <ng-container *ngIf="triggerList(date).length > 0">
+      <div *ngFor="let item of triggerList(date)" style="color: rgb(79, 192, 79)">
+        <li class="text-xs font-medium" [ngClass]="{'text-red-500': !item.returnDate}">
+          {{ item.rentalDate | date : "shortTime" }}
+          {{ item.libraryUser.firstName }} {{ item.libraryUser.lastName }} -
+          {{ item.book.bookTitle }}
+        </li>
+      </div>
+    </ng-container>
   </ul>
 </nz-calendar>
