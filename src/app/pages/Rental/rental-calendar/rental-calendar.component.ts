@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { log } from 'console';
 import moment, { months } from 'moment';
-import { NgLoadingTextTemplateDirective } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-rental-calendar',
@@ -56,7 +55,6 @@ export class RentalCalendarComponent {
 
       if (item.length) {
         this.filteredRentals[moment(i).format('yyyy-MM-DD').toString()] = item;
-       
       }
     }
   }
@@ -68,9 +66,5 @@ export class RentalCalendarComponent {
   onMonthChange(date: Date): void {
     this.selectedMonth = date;
     this.getRentals();
-    
   }
-
-
-
 }
