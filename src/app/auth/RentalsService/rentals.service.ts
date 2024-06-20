@@ -1,7 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RentalsDto, UpdateRentalDto } from '../../models/RentalsDto';
+import {
+  CreateRentalDto,
+  RentalsDto,
+  UpdateRentalDto,
+} from '../../models/RentalsDto';
 
 @Injectable({
   providedIn: 'root',
@@ -12,14 +16,19 @@ export class RentalsService {
   private url = 'http://localhost:5013/api/libraryUser';
   constructor(private http: HttpClient) {}
 
-  getAllRentals(isReturn: boolean |null ,start:string | null,  end:string |null): Observable<RentalsDto[]> {
-
+  getAllRentals(
+    isReturn: boolean | null,
+    start: string | null,
+    end: string | null
+  ): Observable<RentalsDto[]> {
     let params = new HttpParams();
     if (isReturn !== null) {
       params = params.append('isReturn', String(isReturn));
-    }if (start !== null) {
+    }
+    if (start !== null) {
       params = params.append('start', start);
-    }if (end !== null) {
+    }
+    if (end !== null) {
       params = params.append('end', end);
     }
     const url = `${this.apiUrl}`;
@@ -34,7 +43,7 @@ export class RentalsService {
     return this.http.get(this.apiUrl + '/' + rentalsId);
   }
 
-  Create(rentals: RentalsDto): Observable<any> {
+  Create(rentals: CreateRentalDto): Observable<any> {
     return this.http.post(this.apiUrl, rentals);
   }
 

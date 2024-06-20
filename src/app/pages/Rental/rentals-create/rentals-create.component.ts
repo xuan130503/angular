@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
-import {
-
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RentalsService } from '../../../auth/RentalsService/rentals.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { RentalsDto } from '../../../models/RentalsDto';
+import { CreateRentalDto, RentalsDto } from '../../../models/RentalsDto';
 import { Book } from '../../../models/book.models';
 import { LibraryUserDto } from '../../../models/LibraryUserDto';
 import Swal from 'sweetalert2';
@@ -29,7 +25,7 @@ import { log } from 'console';
     RouterModule,
     NzTableModule,
     NzPopconfirmModule,
-    NzSelectModule 
+    NzSelectModule,
   ],
   templateUrl: './rentals-create.component.html',
   styleUrl: './rentals-create.component.css',
@@ -37,14 +33,11 @@ import { log } from 'console';
 export class RentalsCreateComponent {
   libraryUser: LibraryUserDto[] = [];
   book: Book[] = [];
-  rental: RentalsDto = {
-    rentalid: 0,
+  rental: CreateRentalDto = {
+    RentalId: 0,
     rentalDate: new Date(),
-    returnDate: null,
-    bookId: 0,
-    userId: 0,
-    book: {} as Book,
-    libraryUser: {} as LibraryUserDto,
+    BookId: 0,
+    LibraryUserId: '',
   };
   libraryId: any;
 
@@ -55,10 +48,12 @@ export class RentalsCreateComponent {
   ) {}
 
   ngOnInit(): void {
-    this.rentalsService.getallLIbraryUser().subscribe((data: LibraryUserDto[]) => {
-      this.libraryUser = data;
-    });
-    
+    this.rentalsService
+      .getallLIbraryUser()
+      .subscribe((data: LibraryUserDto[]) => {
+        this.libraryUser = data;
+      });
+
     this.bookService.getAll().subscribe((data: Book[]) => {
       this.book = data;
     });

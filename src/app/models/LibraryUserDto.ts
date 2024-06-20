@@ -1,5 +1,5 @@
 export interface LibraryUserDto {
-  libraryUserId: number;
+  libraryUserId: string;
   firstName: string;
   lastName: string;
 }
