@@ -11,7 +11,6 @@ import { BooksService } from '../../../auth/BooksService/books.service';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { log } from 'console';
 
 @Component({
   selector: 'app-rentals-create',

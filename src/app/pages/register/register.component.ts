@@ -30,6 +30,8 @@ export class RegisterComponent {
     username: new FormControl(null, [Validators.required]),
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required]),
+    FirstName : new FormControl(null,[Validators.required]),
+    LastName : new FormControl(null,[Validators.required]),
   });
 
   public onSubmit() {
