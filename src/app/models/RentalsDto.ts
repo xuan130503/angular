@@ -2,7 +2,7 @@ import { LibraryUserDto } from './LibraryUserDto';
 import { Book } from './book.models';
 
 export interface RentalsDto {
-  rentalid: number;
+  rentalId: number;
   rentalDate: Date;
   returnDate: Date | null;
   bookId: number;

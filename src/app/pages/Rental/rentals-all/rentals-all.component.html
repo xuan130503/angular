@@ -25,16 +25,15 @@
   </thead>
   <tbody>
     <tr *ngFor="let rental of basicTable.data">
-      <td>{{ rental.rentalid }}</td>
-      <td>{{ rental.rentalDate | date :  "HH:mm" }}</td>
- 
-      <td *ngIf="!editCache[rental.rentalid]?.edit">
+      <td>{{ rental.rentalId }}</td>
+      <td>{{ rental.rentalDate | date : "HH:mm" }}</td>
+
+      <td *ngIf="!editCache[rental.rentalId]?.edit">
         {{ rental.returnDate | date : "HH:mm" }}
-       
       </td>
-      <td *ngIf="editCache[rental.rentalid]?.edit">
+      <td *ngIf="editCache[rental.rentalId]?.edit">
         <input
-          [(ngModel)]="editCache[rental.rentalid].data.returnDate"
+          [(ngModel)]="editCache[rental.rentalId].data.returnDate"
           type="date"
         />
       </td>
@@ -45,26 +44,26 @@
       <td>
         <button
           style="margin-right: 8px"
-          *ngIf="!editCache[rental.rentalid]?.edit"
-          (click)="startEdit(rental.rentalid)"
+          *ngIf="!editCache[rental.rentalId]?.edit"
+          (click)="startEdit(rental.rentalId)"
         >
           Edit
         </button>
         <button
           style="margin-right: 8px"
-          *ngIf="editCache[rental.rentalid]?.edit"
-          (click)="saveEdit(rental.rentalid)"
+          *ngIf="editCache[rental.rentalId]?.edit"
+          (click)="saveEdit(rental.rentalId)"
         >
           Save
         </button>
         <button
           style="margin-right: 8px"
-          *ngIf="editCache[rental.rentalid]?.edit"
-          (click)="cancelEdit(rental.rentalid)"
+          *ngIf="editCache[rental.rentalId]?.edit"
+          (click)="cancelEdit(rental.rentalId)"
         >
           Cancel
         </button>
-        <button (click)="deleteRental(rental.rentalid)">Delete</button>
+        <button (click)="deleteRental(rental.rentalId)">Delete</button>
       </td>
     </tr>
   </tbody>

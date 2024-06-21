@@ -48,35 +48,35 @@ export class RentalsAllComponent {
         this.updateEditCache();
       });
   }
-
+  
   onFilterChange(event?: any): void {
     const value = event;
-    this.isReturn =
-      value === 'all' ? null : value === 'returnRentals' ? true : false;
+    this.isReturn = value === 'all' ? null : value === 'returnRentals' ? true : false;
     this.loadRentals();
   }
+  
 
   startEdit(id: number): void {
     this.editCache[id].edit = true;
   }
-
+  
   cancelEdit(id: number): void {
-    const index = this.rentals.findIndex((item) => item.rentalid === id);
+    const index = this.rentals.findIndex((item) => item.rentalId === id);
     this.editCache[id] = {
       data: { ...this.rentals[index] },
       edit: false,
     };
   }
-
+  
   saveEdit(id: number): void {
     const updatedRental = this.editCache[id].data;
     const updateDto: UpdateRentalDto = {
       returnDate: updatedRental.returnDate || null,
     };
-
+  
     this.rentalService.updateRental(id, updateDto).subscribe(
       () => {
-        const index = this.rentals.findIndex((item) => item.rentalid == id);
+        const index = this.rentals.findIndex((item) => item.rentalId == id);
         Object.assign(this.rentals[index], updatedRental);
         this.editCache[id].edit = false;
         Swal.fire({
@@ -95,15 +95,15 @@ export class RentalsAllComponent {
       }
     );
   }
-
   updateEditCache(): void {
     this.rentals.forEach((item) => {
-      this.editCache[item.rentalid] = {
+      this.editCache[item.rentalId] = {
         edit: false,
         data: { ...item },
       };
     });
   }
+  
 
   deleteRental(rentalId: number): void {
     Swal.fire({
@@ -117,9 +117,7 @@ export class RentalsAllComponent {
       if (result.isConfirmed) {
         this.rentalService.deleteRental(rentalId).subscribe(
           () => {
-            this.rentals = this.rentals.filter(
-              (item) => item.rentalid !== rentalId
-            );
+            this.rentals = this.rentals.filter((item) => item.rentalId !== rentalId);
             Swal.fire({
               title: 'Deleted!',
               text: 'Rental deleted successfully',
@@ -138,4 +136,5 @@ export class RentalsAllComponent {
       }
     });
   }
+  
 }

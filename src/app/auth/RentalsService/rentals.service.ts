@@ -12,6 +12,7 @@ import {
 })
 export class RentalsService {
   private apiUrl = 'http://localhost:5013/api/rentals';
+  
 
   private url = 'http://localhost:5013/api/libraryUser';
   constructor(private http: HttpClient) {}
@@ -54,7 +55,7 @@ export class RentalsService {
   updateRental(id: number, updateRentalDto: UpdateRentalDto): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, updateRentalDto);
   }
-  deleteRental(rentalid: number) {
-    return this.http.delete(this.apiUrl + '/' + rentalid);
+  deleteRental(RentalId: number) {
+    return this.http.delete(this.apiUrl + '/' + RentalId);
   }
 }
